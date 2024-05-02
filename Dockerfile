@@ -15,7 +15,8 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies
-RUN pip install --no-cache-dir fastapi uvicorn pydantic langchain_community
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
@@ -23,5 +24,5 @@ RUN curl -fsSL https://ollama.com/install.sh | sh
 # Expose the port that FastAPI runs on
 EXPOSE 8000
 
-# Command to run the FastAPI application
-CMD ["sh", "-c", "ollama serve & ollama run llama3 && uvicorn main:app --host 0.0.0.0 --port 8000"]
+# Command to run the Ollama server and then execute "ollama run llama2"
+CMD ["sh", "-c", "ollama serve & sleep 25 && ollama run llama2 && uvicorn main:app --host 0.0.0.0 --port 8000"]
