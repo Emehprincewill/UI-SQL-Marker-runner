@@ -1,2 +1,6 @@
-flask
-gunicorn
+langchain
+langchain-core
+langchain-community
+fastapi
+pyngrok
+uvicorn[standard]
